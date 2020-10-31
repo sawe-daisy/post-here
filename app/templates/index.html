@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
+
 {% block content %}
     <div class="container">
         <ul>
-        {% for q in quotes %}
-            <li>{{ q.author}}</li>
-            <li>{{ q.quote}}</li>
-            <li>{{ q.permalink}}</li>
-        {% endfor %}
+            <li>{{ quotes.author}}</li>
+            <li>{{ quotes.quote}}</li>
         </ul>
     </div>
 {% endblock %}

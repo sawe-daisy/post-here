@@ -2,7 +2,7 @@ import os
 
 class Config:
     # SECRET_KEY = os.environ.get('SECRET_KEY')
-    QUOTE_URL ='http://quotes.stormconsultancy.co.uk/quotes.json'
+    QUOTE_URL ='http://quotes.stormconsultancy.co.uk/random.json'
 
 class DevConfig(Config):
     DEBUG=True
