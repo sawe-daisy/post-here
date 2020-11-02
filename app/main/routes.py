@@ -14,6 +14,11 @@ def index():
 
     return render_template('index.html', quotes=quotes)
 
+@main.route('/blogs/recent/<int:id>', methods=['POST', 'GET'])
+def recent_blogs(id):
+    blogs=Blog.query.filter_by(id=posted_date).all()
+    return render_template('recent.html', blogs=blogs)
+
 @main.route('/user/<uname>')
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
@@ -37,6 +42,8 @@ def update_profile(uname):
 
         return redirect(url_for('.profile', uname=user.username))
     return render_template('profile/update.html', form=form)
+
+
 
 @main.route('/user/<uname>/update/pic', methods=['POST'])
 @login_required
