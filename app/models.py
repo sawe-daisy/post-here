@@ -140,10 +140,10 @@ class Downvote(db.Model):
         downvote = Downvote.query.filter_by(blogs_id=id).all()
         return downvote
 
-    @classmethod
-    def get_all_downvotes(cls,blogs_id:
-        downvote = Downvote.query.order_by('id').all()
-        return downvote
+    # @classmethod
+    # def get_all_downvotes(cls,blogs_id:
+    #     downvotes = Downvote.query.order_by('id').all()
+    #     return downvotes
 
     def __repr__(self):
         return f'{self.user_id}:{self.blogs_id}'
