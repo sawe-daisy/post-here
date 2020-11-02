@@ -74,7 +74,12 @@ class Blog(db.Model):
         
     @classmethod
     def getblog(cls, id):
-        blogs = Blog.query.order_by(blogId=id).desc().all()
+        blogs = Blog.query.order_by(blog_id=id).desc().all()
+        return blogs
+
+    @classmethod
+    def get_all(cls):
+        blogs= Blog.query.all()
         return blogs
 
     def __repr__(self):

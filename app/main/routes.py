@@ -51,9 +51,9 @@ def update_pic(uname):
     return redirect(url_for('main.profile', uname=uname))
 
 @main.route('/blogs/all', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def all_blogs():
-    blogs= Blog.getblog()
+    blogs= Blog.get_all()
     return render_template('blogs.html', blogs=blogs)
 
 @main.route('/blogs/new/', methods= ['GET','POST'])
@@ -64,12 +64,12 @@ def new_blog():
     if form.validate_on_submit():
         details= form.details.data
         blog_id =current_user
-        title= form.name.data
+        title= form.title.data
         # print(current_user._get_current_object().id)
         new_blogs = Blog(blog_id=current_user._get_current_object().id, details=details, title=title)
         new_blogs.save_blog()
 
-        return redirect(url_for('main.blogs'))
+        return redirect(url_for('main.all_blogs'))
 
     return render_template('blog.html', form=form)
 
@@ -109,7 +109,7 @@ def updateBlog(id):
     form=AddBlog()
     if request.method=='POST':
         form.validate_on_submit()
-        blog.title=form.name.data
+        blog.title=form.title.data
         blog.details= form.details.data
         db.session.add(blog)
         db.session.commit()

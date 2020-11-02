@@ -1,22 +1,22 @@
 {% extends 'base.html'%}
 {% block content%}
 <div class="container">
-    <div class="row">
-        <h2 style="color: brown; font-size: 20px; align-items: center;">Available Blogs</h2>
-        {% for blog in blogs %}
-        <div class="col-md-4">
-            <h5>{{blog.title}}</h5>
-            <p>{{ blog.details }}</p>
-            <p>Posetd by: {{blog.user.username}}</p>
+        <h2 style="color: brown; font-size: 30px; text-align: center;">Available Blogs</h2>
+        <div class="display" style="display: flex; justify-content: center; flex-wrap: wrap; flex-direction: row;">
+            {% for blog in blogs %}
+            <div class="card" style="width: 35rem; margin: 5px;">
+                <div class="card-body">
+                  <h3 class="card-title" style="color: brown; font-size: 30px; text-align: center;"><h5>{{blog.title}}</h3>
+                  <p class="card-text">{{blog.details|truncate(100)}}</p>
+                  <h5 class="card-title">Posetd by: {{blog.user.username}}</h5>
+                  <a href="{{url_for('main.add_comment', blogs_id=blog.id)}}"><i class="fas fa-comment fa-fw pr-3"></i>Comment</a>
+                  {% if blog.user==current_user %}
+                        <a href="{{url_for('main.updateBlog',id=blog.id)}}"><i class="fas fa-pen pr-3"></i>Update</a>
+                  {% endif %}
+                </div>
+            </div>
+            {% endfor %}
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <a href="{{url_for('main.add_comment', blogs_id=blog.id)}}"><i class="fas fa-comment fa-fw pr-3"></i></a>
-            {% if blog.user===current_user %}
-            <a href="{{url_for('main.updateBlog',id=blog.id)}}"><i class="fas fa-pen pr-3"></i></a>
-            {% endif %}
-        </div>
-    </div>
 </div>
 {% endblock %}
+

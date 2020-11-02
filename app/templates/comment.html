@@ -23,8 +23,8 @@
         <div class="col-md-4">
             <p>{{comment.details}}</p>
         <p>Posted by:{{comment.user.username}}</p>
-        <p>Posted on:{{comment.post_date.strftime("%Y/%m/%d")}}</p>
-        <a href="url_for('main.deleteComments', id=comment.id)}}"><i class="fas fa-trash"></i></a>
+        <p>Posted on:{{comment.posted_date.strftime("%Y/%m/%d")}}</p>
+        <a href="url_for('main.deleteComments', id=comment.id)}}"><i class="fas fa-trash"> Delete</i></a>
         </div>
         {% endfor %}
     </div>

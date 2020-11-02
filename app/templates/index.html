@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
-
 {% block content %}
-    <div class="container">
-        <ul>
-            <li>{{ quotes.author}}</li>
-            <li>{{ quotes.quote}}</li>
-        </ul>
+    <div class="container" style="background-color: beige;">
+        <div style="text-align: center;padding: 300px 0;">
+            <ul style="list-style: none;">
+                <li><em>{{ quotes.author}}</em></li>
+                <li>{{ quotes.quote}}</li>
+            </ul>
+        </div>
     </div>
 {% endblock %}
