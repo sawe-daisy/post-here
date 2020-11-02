@@ -11,7 +11,7 @@
                   <h5 class="card-title">Posetd by: {{blog.user.username}}</h5>
                   <a href="{{url_for('main.add_comment', blogs_id=blog.id)}}"><i class="fas fa-comment fa-fw pr-3"></i>Comment</a>
                   {% if blog.user==current_user %}
-                        <a href="{{url_for('main.updateBlog',id=blog.id)}}"><i class="fas fa-pen pr-3"></i>Update</a>
+                        <a href="{{url_for('main.updateBlog',id=blog.id)}}"><i class="fas fa-pen pr-3"></i>Delete</a>
                   {% endif %}
                 </div>
             </div>

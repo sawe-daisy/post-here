@@ -114,21 +114,11 @@ def upvote(blogs_id):
 @main.route('/update/<int:id>', methods=['GET', 'POST'])
 @login_required
 def updateBlog(id):
-    blog=Blog.query.filter_by(id=id).all()
-    form=AddBlog()
-    if request.method=='POST':
-        form.validate_on_submit()
-        blog.title=form.title.data
-        blog.details= form.details.data
-        db.session.add(blog)
-        db.session.commit()
-
-        return redirect(url_for(main.blogs))
-    elif request.method=='GET':
-        form.title.data= blog.title
-        form.details.data=blog.details
-    
-    return render_template('updateB.html')
+    blog=Blog.query.get(id)
+    db.session.delete(blog)
+    db.session.commit()
+    flash('you have succesfully deleted the comment')
+    return redirect(url_for('main.all_blogs'))
 
 @main.route('/blog/downvote/<int:blogs_id>/downvote', methods=['GET','POST'])
 @login_required
