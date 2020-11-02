@@ -50,6 +50,12 @@ def update_pic(uname):
         db.session.commit()
     return redirect(url_for('main.profile', uname=uname))
 
+@main.route('/blogs/all', methods=['GET', 'POST'])
+@login_required
+def all_blogs():
+    blogs= Blog.getblog()
+    return render_template('blogs.html', blogs=blogs)
+
 @main.route('/blogs/new/', methods= ['GET','POST'])
 @login_required
 def new_blog():
@@ -61,9 +67,9 @@ def new_blog():
         title= form.name.data
         # print(current_user._get_current_object().id)
         new_blogs = Blog(blog_id=current_user._get_current_object().id, details=details, title=title)
-        new_blogs.save_pitches()
+        new_blogs.save_blog()
 
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.blogs'))
 
     return render_template('blog.html', form=form)
 
@@ -90,13 +96,30 @@ def upvote(blogs_id):
     p_upvotes =Upvotes.query.filter_by(blogs_id=blogs_id)
 
     if Upvotes.query.filter(Upvotes.user_id==user.id, Upvotes.blogs_id==blogs_id).first():
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.blogs'))
 
     newUpvote = Upvotes(blogs_id=blogs_id, user=current_user)
     newUpvote.save_upvotes()
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.blogs'))
 
+@main.route('/update/<int:id>', methods=['GET', 'POST'])
+@login_required
+def updateBlog(id):
+    blog=Blog.query.filter_by(id=id).all()
+    form=AddBlog()
+    if request.method=='POST':
+        form.validate_on_submit()
+        blog.title=form.name.data
+        blog.details= form.details.data
+        db.session.add(blog)
+        db.session.commit()
 
+        return redirect(url_for(main.blogs))
+    elif request.method=='GET':
+        form.title.data= blog.title
+        form.details.data=blog.details
+    
+    return render_template('updateBlog.html')
 
 @main.route('/blog/downvote/<int:blogs_id>/downvote', methods=['GET','POST'])
 # @login_required
@@ -106,8 +129,8 @@ def downvote(blogs_id):
     douwnVotes= Downvote.query.filter_by(blogs_id=blogs_id)
 
     if Downvote.query.filter(Downvote.user_id==user.id, Downvote.blogs_id==blogs_id).first():
-        return redirect(url_for('main.index'))
+        return redirect(url_for('main.blogs'))
 
     newDownvote = Downvote(blogs_id=blogs_id, user=current_user)
     newDownvote.save_downvotes()
-    return redirect(url_for('main.index'))
+    return redirect(url_for('main.blogs'))
