@@ -28,9 +28,9 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String(255))
     pass_word= db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
-    photos = db.relationship('PhotoProfile',backref = 'user',lazy = "dynamic")
-    blog = db.relationship('Blog', backref='user', lazy='dynamic')
-    comments = db.relationship('Comment', backref = 'user', lazy = 'dynamic')
+    photos = db.relationship('PhotoProfile',backref = 'user', lazy = "dynamic")
+    blog = db.relationship('Blog', backref='user', passive_deletes=True,lazy='dynamic')
+    comments = db.relationship('Comment', backref = 'user', passive_deletes=True,lazy = 'dynamic')
     upvotes = db.relationship('Upvotes', backref = 'user', lazy = 'dynamic')
     downvotes = db.relationship('Downvote', backref = 'user', lazy = 'dynamic')
 
@@ -60,7 +60,7 @@ class Blog(db.Model):
     __tablename__='blogs'
 
     id = db.Column(db.Integer, primary_key=True)
-    blog_id= db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    blog_id= db.Column(db.Integer, db.ForeignKey('users.id', ondelete='CASCADE'), nullable=False)
     details= db.Column(db.String(), index=True)
     title = db.Column(db.String(255), nullable=False)
     posted_date= db.Column(db.DateTime, default= datetime.utcnow)
@@ -90,13 +90,14 @@ class Comment(db.Model):
     id =db.Column(db.Integer, primary_key=True)
     details = db.Column(db.Text)
     posted_date= db.Column(db.DateTime, default= datetime.utcnow)
-    blogs_id = db.Column(db.Integer, db.ForeignKey('blogs.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable= False)
+    blogs_id = db.Column(db.Integer, db.ForeignKey('blogs.id', ondelete="CASCADE"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete="CASCADE"), nullable= False)
     
     # @classmethod
     def del_comment(self):
         db.session.delete(self)
         db.session.commit()
+
 
     def __repr__(self):
         return f'Comment: id:{self.id} comment: {self.details}'

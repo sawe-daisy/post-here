@@ -73,6 +73,15 @@ def new_blog():
 
     return render_template('blog.html', form=form)
 
+@main.route('/comment/delete/<int:id>', methods=['GET', 'POST'])
+@login_required
+def del_comment(id):
+    comment= Comment.query.get(id)
+    db.session.delete(comment)
+    db.session.commit()
+    flash('you have succesfully deleted the comment')
+    return redirect(url_for('main.all_blogs'))
+
 @main.route('/comment/new/<int:blogs_id>', methods=['GET','POST'])
 # @login_required
 def add_comment(blogs_id):
