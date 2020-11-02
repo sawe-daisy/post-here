@@ -13,5 +13,5 @@ def configure_req(app):
 
 def get_quotes():
     
-    get_response= requests.get(QUOTE_URL).json()
+    get_response= requests.get('http://quotes.stormconsultancy.co.uk/random.json').json()
     return get_response
