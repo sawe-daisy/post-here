@@ -89,7 +89,7 @@ def add_comment(blogs_id):
     return render_template('comment.html',form=form, allComents=allComents,blog =blog)
 
 @main.route('/blog/upvote/<int:blogs_id>/upvote', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def upvote(blogs_id):
     blog = Blog.query.get(blogs_id)
     user = current_user
@@ -119,10 +119,10 @@ def updateBlog(id):
         form.title.data= blog.title
         form.details.data=blog.details
     
-    return render_template('updateBlog.html')
+    return render_template('updateB.html')
 
 @main.route('/blog/downvote/<int:blogs_id>/downvote', methods=['GET','POST'])
-# @login_required
+@login_required
 def downvote(blogs_id):
     blog= Blog.query.get(blogs_id)
     user = current_user
