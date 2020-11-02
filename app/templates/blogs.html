@@ -1,0 +1,22 @@
+{% extends 'base.html'%}
+{% block content%}
+<div class="container">
+    <div class="row">
+        <h2 style="color: brown; font-size: 20px; align-items: center;">Available Blogs</h2>
+        {% for blog in blogs %}
+        <div class="col-md-4">
+            <h5>{{blog.title}}</h5>
+            <p>{{ blog.details }}</p>
+            <p>Posetd by: {{blog.user.username}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <a href="{{url_for('main.add_comment', blogs_id=blog.id)}}"><i class="fas fa-comment fa-fw pr-3"></i></a>
+            {% if blog.user===current_user %}
+            <a href="{{url_for('main.updateBlog',id=blog.id)}}"><i class="fas fa-pen pr-3"></i></a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
