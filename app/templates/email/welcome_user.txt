@@ -1,0 +1,7 @@
+Hello {{user.username}}
+Welcome to Sayit app. 
+we have seen you have signed up to our application and we are happy to 
+welcome you to the family.Please enjoy varios pitches available. 
+Feel free to leave your own Pitch.
+
+Thank you
