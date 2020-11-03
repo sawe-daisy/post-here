@@ -7,7 +7,7 @@
 
 ## Link to live site
 
-[My blogs](https://blogtoday.herokuapp.com/)
+[Blog Master](https://blogtoday.herokuapp.com/)
 
 ## Description
 This is a personal blogging website where you can create and share your opinions and other users can read and comment on them. Additionally it has a feature that displays random quotes to inspire your users.
@@ -50,7 +50,7 @@ The writer would like to... :
 ### Cloning
 * In your terminal:
         
-        $ git clone https://github.com/PerisOduol618/Blogs.git
+        $ git clone https://github.com/sawe-daisy/post-here
         $ cd blogs
 
 ## Running the Application
